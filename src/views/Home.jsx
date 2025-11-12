@@ -11,7 +11,9 @@ function Home() {
     setLoading(true)
     setError(null)
     try {
-      const res = await fetch(`https://www.omdbapi.com/?apikey=YOUR_API_KEY&s=${query}`)
+      const res = await fetch(`https://www.omdbapi.com/?apikey=${import.meta.env.VITE_OMDB_KEY}&s=${query}`)
+
+
       const data = await res.json()
       if (data.Response === 'True') {
         setMovies(data.Search)

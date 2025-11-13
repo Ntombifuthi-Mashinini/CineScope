@@ -1,40 +1,55 @@
 function MovieCard({ movie }) {
   return (
-    <div
-      style={{
-        width: '200px',
-        height: '400px',
-        margin: '10px',
-        background: '#fff',
-        borderRadius: '8px',
-        boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
-        overflow: 'hidden',
-        transition: 'transform 0.3s',
-        cursor: 'pointer',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between'
-      }}
-      onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
-      onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+    <div style={{
+      backgroundColor: '#1a1a1a',
+      borderRadius: '10px',
+      padding: '12px',
+      textAlign: 'center',
+      boxShadow: '0 0 12px rgba(255,255,255,0.05)',
+      transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+      cursor: 'pointer'
+    }}
+    onMouseEnter={(e) => {
+      e.currentTarget.style.transform = 'scale(1.05)'
+      e.currentTarget.style.boxShadow = '0 0 20px rgba(255,255,255,0.1)'
+    }}
+    onMouseLeave={(e) => {
+      e.currentTarget.style.transform = 'scale(1)'
+      e.currentTarget.style.boxShadow = '0 0 12px rgba(255,255,255,0.05)'
+    }}
     >
       <img
-        src={movie.Poster !== 'N/A' ? movie.Poster : 'https://via.placeholder.com/200x300?text=No+Image'}
+        src={movie.Poster !== 'N/A' ? movie.Poster : 'https://via.placeholder.com/300x445?text=No+Image'}
         alt={movie.Title}
-        style={{ width: '100%', height: '300px', objectFit: 'cover' }}
+        style={{
+          width: '100%',
+          height: 'auto',
+          borderRadius: '6px',
+          marginBottom: '12px',
+          boxShadow: '0 0 8px rgba(255,255,255,0.1)'
+        }}
       />
-      <div style={{ padding: '10px' }}>
-        <h3 style={{
-          margin: '0 0 5px',
-          fontSize: '1.1rem',
-          textShadow: '0 0 5px rgba(255,255,255,0.2)'
-}}>
-  {movie.Title}
-</h3>
-
-        <p style={{ margin: '0', color: '#555' }}>{movie.Year}</p>
-        <p style={{ margin: '0', color: '#888' }}>{movie.Type}</p>
-      </div>
+      <h3 style={{
+        fontSize: '1.1rem',
+        marginBottom: '6px',
+        color: '#fff',
+        textShadow: '0 0 6px rgba(255,255,255,0.2)'
+      }}>
+        {movie.Title}
+      </h3>
+      <p style={{
+        fontSize: '0.9rem',
+        color: '#bbb',
+        marginBottom: '4px'
+      }}>
+        {movie.Year}
+      </p>
+      <p style={{
+        fontSize: '0.8rem',
+        color: '#888'
+      }}>
+        {movie.Type?.toUpperCase()}
+      </p>
     </div>
   )
 }

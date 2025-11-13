@@ -24,7 +24,14 @@ function MovieCard({ movie }) {
         style={{ width: '100%', height: '300px', objectFit: 'cover' }}
       />
       <div style={{ padding: '10px' }}>
-        <h3 style={{ margin: '0 0 5px', fontSize: '1.1rem' }}>{movie.Title}</h3>
+        <h3 style={{
+          margin: '0 0 5px',
+          fontSize: '1.1rem',
+          textShadow: '0 0 5px rgba(255,255,255,0.2)'
+}}>
+  {movie.Title}
+</h3>
+
         <p style={{ margin: '0', color: '#555' }}>{movie.Year}</p>
         <p style={{ margin: '0', color: '#888' }}>{movie.Type}</p>
       </div>

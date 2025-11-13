@@ -1,4 +1,15 @@
 function MovieCard({ movie }) {
+  const isFavorite = localStorage.getItem(movie.imdbID)
+
+  function toggleFavorite() {
+    if (isFavorite) {
+      localStorage.removeItem(movie.imdbID)
+    } else {
+      localStorage.setItem(movie.imdbID, JSON.stringify(movie))
+    }
+    window.location.reload()
+  }
+
   return (
     <div style={{
       backgroundColor: '#1a1a1a',
@@ -37,21 +48,27 @@ function MovieCard({ movie }) {
       }}>
         {movie.Title}
       </h3>
-      <p style={{
-        fontSize: '0.9rem',
-        color: '#bbb',
-        marginBottom: '4px'
-      }}>
-        {movie.Year}
-      </p>
-      <p style={{
-        fontSize: '0.8rem',
-        color: '#888'
-      }}>
-        {movie.Type?.toUpperCase()}
-      </p>
+      <p style={{ fontSize: '0.9rem', color: '#bbb' }}>{movie.Year} • {movie.Type?.toUpperCase()}</p>
+      <p style={{ fontSize: '0.9rem', color: '#ffcc00' }}>⭐ {movie.imdbRating}</p>
+      <p style={{ fontSize: '0.8rem', color: '#ccc', margin: '10px 0' }}>{movie.Plot}</p>
+      <button
+        onClick={toggleFavorite}
+        style={{
+          padding: '6px 12px',
+          fontSize: '0.8rem',
+          borderRadius: '6px',
+          border: 'none',
+          background: isFavorite ? '#ff0066' : '#444',
+          color: '#fff',
+          cursor: 'pointer',
+          boxShadow: '0 0 5px rgba(255,255,255,0.1)'
+        }}
+      >
+        {isFavorite ? '★ Favorited' : '☆ Add to Favorites'}
+      </button>
     </div>
   )
 }
 
 export default MovieCard
+

@@ -14,7 +14,13 @@ function Home() {
       const res = await fetch(`https://www.omdbapi.com/?apikey=${import.meta.env.VITE_OMDB_KEY}&s=${query}`)
       const data = await res.json()
       if (data.Response === 'True') {
-        setMovies(data.Search.slice(0, 12))
+        const detailed = await Promise.all(
+          data.Search.slice(0, 12).map(async (movie) => {
+            const resDetail = await fetch(`https://www.omdbapi.com/?apikey=${import.meta.env.VITE_OMDB_KEY}&i=${movie.imdbID}`)
+            return await resDetail.json()
+          })
+        )
+        setMovies(detailed)
       } else {
         setError(data.Error)
         setMovies([])

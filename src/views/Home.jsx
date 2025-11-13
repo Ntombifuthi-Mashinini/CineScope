@@ -14,7 +14,7 @@ function Home() {
       const res = await fetch(`https://www.omdbapi.com/?apikey=${import.meta.env.VITE_OMDB_KEY}&s=${query}`)
       const data = await res.json()
       if (data.Response === 'True') {
-        setMovies(data.Search)
+        setMovies(data.Search.slice(0, 8)) // Limit to 8 results for clean grid
       } else {
         setError(data.Error)
         setMovies([])
@@ -27,19 +27,28 @@ function Home() {
   }
 
   return (
-    <div>
-      {/* 🎬 Hero Banner */}
+    <>
+      {/* 🎬 Hero Cover Section */}
       <div style={{
-        background: 'linear-gradient(to right, #1e3c72, #2a5298)',
-        color: 'white',
-        padding: '40px 20px',
-        textAlign: 'center',
-        borderRadius: '0 0 20px 20px'
+        position: 'relative',
+        height: '60vh',
+        backgroundImage: 'url(https://images.unsplash.com/photo-1607083206173-3e5c3c7c3c3f?auto=format&fit=crop&w=1600&q=80)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        color: 'white'
       }}>
-        <h1 style={{ fontSize: '3rem', margin: 0 }}>🎬 CineScope</h1>
-        <p style={{ fontSize: '1.2rem', marginTop: '10px' }}>
-          Discover movies. Search by title. Explore cinema.
-        </p>
+        <div style={{
+          backgroundColor: 'rgba(0, 0, 0, 0.6)',
+          padding: '40px',
+          borderRadius: '10px',
+          textAlign: 'center'
+        }}>
+          <h1 style={{ fontSize: '3rem', marginBottom: '10px' }}>🎬 CineScope</h1>
+          <p style={{ fontSize: '1.2rem' }}>Discover movies. Search by title. Explore cinema.</p>
+        </div>
       </div>
 
       {/* 🔍 Search Bar */}
@@ -51,10 +60,12 @@ function Home() {
 
       {/* 🎞️ Movie Grid */}
       <div style={{
-        display: 'flex',
-        flexWrap: 'wrap',
-        justifyContent: 'center',
-        marginTop: '20px'
+        display: 'grid',
+        gridTemplateColumns: 'repeat(4, 1fr)', // 4 cards per row
+        gap: '20px',
+        padding: '20px',
+        maxWidth: '1000px',
+        margin: '0 auto'
       }}>
         {movies.map((movie) => (
           <MovieCard key={movie.imdbID} movie={movie} />
@@ -62,17 +73,16 @@ function Home() {
       </div>
 
       {/* 📝 Footer */}
-        <footer style={{
-  textAlign: 'center',
-  padding: '20px',
-  marginTop: '40px',
-  fontSize: '0.9rem',
-  color: '#666'
-}}>
-  Developed by Ntombifuthi Mashinini © NtombiCode Labs - 2025 | Powered by OMDb API
-</footer>
-
-    </div>
+      <footer style={{
+        textAlign: 'center',
+        padding: '20px',
+        marginTop: '40px',
+        fontSize: '0.9rem',
+        color: '#666'
+      }}>
+        Developed by Ntombifuthi • Powered by OMDb API
+      </footer>
+    </>
   )
 }
 

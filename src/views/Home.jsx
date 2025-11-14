@@ -33,8 +33,18 @@ function Home() {
   }
 
   useEffect(() => {
-    fetchMovies('Batman')
-  }, [])
+  console.log("Deployed key:", import.meta.env.VITE_OMDB_KEY);
+
+  const fetchMovies = async () => {
+    const API_KEY = import.meta.env.VITE_OMDB_KEY;
+    const response = await fetch(`https://www.omdbapi.com/?s=batman&apikey=${API_KEY}`);
+    const data = await response.json();
+    console.log(data);
+  };
+
+  fetchMovies();
+}, []);
+
 
   return (
     <div style={{
